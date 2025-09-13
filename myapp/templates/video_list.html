@@ -47,9 +47,9 @@
             
             <br><br>
 
-            <a href="/videos/{{ video.id }}/">Подробнее</a> |
-            <a href="/videos/{{ video.id }}/update/">Редактировать</a> |
-            <a href="/videos/{{ video.id }}/delete/">Удалить</a>
+            <a href="{% url 'video_detail' video.id %}">Подробнее</a> |
+            <a href="{% url 'video_update' video.id %}">Редактировать</a> |
+            <a href="{% url 'video_delete' video.id %}">Удалить</a>
         </div>
     {% endfor %}
 
