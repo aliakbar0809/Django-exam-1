@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пользователь</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <h2>Создать пользователя</h2>
+
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        Имя: <input type="text" name="first_name" value="{{ user.first_name }}"><br>
+        Фамилия: <input type="text" name="last_name" value="{{ user.last_name }}"><br>
+        Email: <input type="email" name="email" value="{{ user.email }}"><br>
+        Аватар: <input type="file" name="avatar"><br>
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <a href="{% url 'user_list' %}">Назад к списку пользователей</a>
+
+    
+
+</body>
+</html>

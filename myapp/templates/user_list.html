@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список пользователей</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <h2>Список пользователей</h2>
+
+    <a href="{% url 'user_create' %}">Создать нового пользователя</a><br><br>
+
+    {% for user in users %}
+        <div>
+            {{ user.first_name }} {{ user.last_name }}<br>
+            Email: {{ user.email }}<br>
+            {% if user.avatar %}
+                <img src="{{ user.avatar.url }}" width="100"><br>
+            {% endif %}
+            <a href="{% url 'user_detail' user.id %}">Подробнее</a> |
+            <a href="{% url 'user_update' user.id %}">Редактировать</a> |
+            <a href="{% url 'user_delete' user.id %}">Удалить</a>
+        </div>
+    {% endfor %}
+
+    {% for user in users %}
+    <p>{{ user.first_name }} {{ user.last_name }}
+        <a href="{% url 'user_detail' user.id %}">Посмотреть</a>
+    </p>
+{% endfor %}
+
+</body>
+</html>

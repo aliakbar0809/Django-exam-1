@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ video.title }}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    
+    <h2>{{ video.title }}</h2>
+
+    <p>{{ video.description }}</p>
+    <p>Загрузил: {{ video.user.first_name }} {{ video.user.last_name }}</p>
+
+    <video width="500" controls>
+        <source src="{{ video.file.url }}" type="video/mp4">
+    </video><br><br>
+
+    <a href="{% url 'video_list' %}">Назад к списку видео</a>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о пользователе</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <h2>Информация о пользователе</h2>
+
+    Имя: {{ user.first_name }}<br>
+    Фамилия: {{ user.last_name }}<br>
+    Email: {{ user.email }}<br>
+
+    {% if user.avatar %}
+        <img src="{{ user.avatar.url }}" width="150"><br>
+    {% endif %}
+
+    <h3>Видео пользователя:</h3>
+    {% for video in user.video_set.all %}
+        <div>
+            {{ video.title }}<br>
+            <video width="300" controls>
+                <source src="{{ video.file.url }}" type="video/mp4">
+            </video><br>
+            <a href="{% url 'video_detail' video.id %}">Смотреть</a>
+        </div>
+        <hr>
+    {% endfor %}
+
+    <br>
+    <a href="{% url 'user_list' %}">Назад к списку пользователей</a>
+
+</body>
+</html>
