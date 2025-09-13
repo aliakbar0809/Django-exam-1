@@ -9,7 +9,9 @@
 </head>
 <body>
 
-    <h2>Список пользователей</h2>
+    <h2>Список пользователей</h2> <br>
+
+    <a href="{% url 'video_list' %}"><button>Перейти к видео</button></a>
 
     <a href="{% url 'user_create' %}">Создать нового пользователя</a><br><br>
 
@@ -32,7 +34,7 @@
     </p>
 {% endfor %}
 
-<a href="{% url 'video_list' %}"><button>Перейти к видео</button></a>
+
 
 </body>
 </html>
