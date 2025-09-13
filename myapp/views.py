@@ -60,6 +60,7 @@ def video_create(request):
 
 
 def video_list(request):
+    
     user_id = request.GET.get('user_id')
     exclude_user_id = request.GET.get('exclude_user_id')
 
