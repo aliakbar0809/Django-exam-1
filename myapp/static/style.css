@@ -38,6 +38,15 @@ select{
     border-radius: 4px;
 }
 
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
 button {
     background-color: #007bff;
     color: white;

@@ -14,5 +14,8 @@ urlpatterns = [
     path('videos/create/',video_create,name='video_create'),
     path('videos/<int:id>/',video_detail,name='video_detail'),
     path('videos/<int:id>/update/',video_update,name='video_update'),
-    path('videos/<int:id>/delete/',video_delete,name='video_delete')
+    path('videos/<int:id>/delete/',video_delete,name='video_delete'),
+
+    path('login/',login,name='login'),
+    path('logout/',logout,name='logout')
 ]

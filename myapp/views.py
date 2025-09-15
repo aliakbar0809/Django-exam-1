@@ -10,9 +10,33 @@ def user_create(request):
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
         avatar = request.FILES.get('avatar')
-        User.objects.create(first_name=first_name, last_name=last_name, email=email, avatar=avatar)
-        return redirect('user_list')
-    return render(request, 'user_create.html')
+        password = request.POST.get('password')
+        confirm = request.POST.get('confirm')
+
+        if password!=confirm:
+            return render(request,'user_create.html',{'context':'Пароль не совпадают с тем которым вы ввели'})
+        try:
+            User.objects.create(first_name=first_name,last_name=last_name,email=email,avatar=avatar,password=password)
+            return redirect('login')
+        except:
+            return render(request,'user_create.html',{'context':'Ваш пароль или никнейм не найдены'})
+    return render(request,'user_create.html')
+
+
+def login(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(email=email,password=password)
+            if user:
+                request.session['user_id']=user.id
+                return redirect('user_list')
+        except:
+            return render(request,'login.html',{'context':'Ваш email или пароль не правильно вводены'})
+    return render(request,'login.html')
+    
 
 
 def user_list(request):
@@ -47,16 +71,23 @@ def user_delete(request, id):
 # Video
 
 def video_create(request):
-    users = User.objects.all()
-    if request.method == 'POST':
-        title = request.POST.get('title')
-        description = request.POST.get('description')
-        file = request.FILES.get('file')
-        user_id = request.POST.get('user_id')
-        Video.objects.create(title=title, description=description, file=file, user=User.objects.get(id=user_id))
-        return redirect('video_list')
-    return render(request, 'video_create.html', {'users': users})
+    try:
+        if request.session['user_id']:
+            if request.method == 'POST':
+                title = request.POST.get('title')
+                description = request.POST.get('description')
+                file = request.FILES.get('file')
+                user_id = request.session['user_id']
+                Video.objects.create(title=title,description=description,file=file,user=User.objects.get(id=user_id))
+                return redirect('video_list')
+        return render(request,'video_create.html')
+    except:
+        return redirect('login')
 
+
+def logout(request):
+    request.session.flush()
+    return redirect('login')
 
 
 def video_list(request):
